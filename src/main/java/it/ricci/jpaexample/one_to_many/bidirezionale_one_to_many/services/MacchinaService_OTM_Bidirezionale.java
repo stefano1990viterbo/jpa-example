@@ -4,7 +4,6 @@ import it.ricci.jpaexample.one_to_many.bidirezionale_one_to_many.entities.Macchi
 import it.ricci.jpaexample.one_to_many.bidirezionale_one_to_many.entities.PersonaBi;
 import it.ricci.jpaexample.one_to_many.bidirezionale_one_to_many.repositories.MacchinaRepository_OTM_Bidirezionale;
 import it.ricci.jpaexample.one_to_many.bidirezionale_one_to_many.repositories.PersonaRepositoryOTM_Bidirezionale;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -44,7 +43,16 @@ public class MacchinaService_OTM_Bidirezionale {
   @Transactional
   public void rimuoviIlProprietario() {
     log.info(() -> "Rimuovo proprietario dalla macchina");
-    MacchinaBi macchina = repository.findById(1L).orElseThrow(EntityNotFoundException::new);
+    MacchinaBi macchina = repository.findByProprietario_IdNotNull().get(0);
     macchina.rimuoviProprietario();
+    log.info(() -> "Fine rimozione proprietario");
+  }
+
+  @Transactional
+  public void pulisciTabelleCreate() {
+    log.info("Pulizia db");
+    repository.deleteByIdNotNull();
+    personaRepository.deleteByIdNotNull();
+    log.info("Fine Pulizia db");
   }
 }

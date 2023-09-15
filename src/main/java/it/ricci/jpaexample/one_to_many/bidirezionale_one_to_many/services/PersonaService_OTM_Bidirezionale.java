@@ -2,6 +2,7 @@ package it.ricci.jpaexample.one_to_many.bidirezionale_one_to_many.services;
 
 import it.ricci.jpaexample.one_to_many.bidirezionale_one_to_many.entities.MacchinaBi;
 import it.ricci.jpaexample.one_to_many.bidirezionale_one_to_many.entities.PersonaBi;
+import it.ricci.jpaexample.one_to_many.bidirezionale_one_to_many.repositories.MacchinaRepository_OTM_Bidirezionale;
 import it.ricci.jpaexample.one_to_many.bidirezionale_one_to_many.repositories.PersonaRepositoryOTM_Bidirezionale;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 public class PersonaService_OTM_Bidirezionale {
 
   private final PersonaRepositoryOTM_Bidirezionale repository;
+  private final MacchinaRepository_OTM_Bidirezionale macchinaRepository;
 
   @Transactional
   public void initPersonaConDueMacchine() {
@@ -52,5 +54,12 @@ public class PersonaService_OTM_Bidirezionale {
     repository.flush();
 
     log.info(() -> "Fine");
+  }
+
+  @Transactional
+  public void pulisciDb() {
+    log.info(()->"Pulisco il db");
+    repository.deleteByIdNotNull();
+    macchinaRepository.deleteByIdNotNull();
   }
 }

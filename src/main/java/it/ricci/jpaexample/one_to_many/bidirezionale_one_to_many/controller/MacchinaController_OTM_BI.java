@@ -15,5 +15,6 @@ public class MacchinaController_OTM_BI {
   public void cicloMacchina(){
     service.inizializzaElementiInTabella();
     service.rimuoviIlProprietario();
+//    service.pulisciTabelleCreate();
   }
 }

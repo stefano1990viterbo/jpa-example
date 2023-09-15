@@ -52,6 +52,7 @@ public class MacchinaBi {
   }
 
   public void rimuoviProprietario(){
+    //TODO verificare se è necessario rimuovere dal proprietario la macchina???
     this.proprietario.rimuoviMacchina(this);
     this.setProprietario(null);
   }

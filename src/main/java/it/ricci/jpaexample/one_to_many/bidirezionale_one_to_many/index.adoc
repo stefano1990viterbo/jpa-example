@@ -3,7 +3,6 @@
 
 Il modo migliore per mappare un'associazione @OneToMany è fare affidamento sul @ManyToOne lato per propagare tutte le modifiche allo stato dell'entità:
 
-
 [,java]
 ----
 @Entity
@@ -38,15 +37,13 @@ public class PersonaBi {
   }
 }
 ----
+
 [IMPORTANT]
 ====
 .Classe Persona
-presenta due metodi di utilità (ad esempio aggiungiMacchina e rimuoviMacchina) che vengono utilizzati
-per sincronizzare entrambi i lati dell'associazione bidirezionale. Dovresti sempre fornire
-questi metodi ogni volta che lavori con un'associazione bidirezionale poiché, altrimenti,
-rischi di problemi di propagazione dello stato molto sottili
+presenta due metodi di utilità (ad esempio aggiungiMacchina e rimuoviMacchina) che vengono utilizzati per sincronizzare entrambi i lati dell'associazione bidirezionale.
+Dovresti sempre fornire questi metodi ogni volta che lavori con un'associazione bidirezionale poiché, altrimenti, rischi di problemi di propagazione dello stato molto sottili
 ====
-
 
 [,java]
 ----
@@ -92,9 +89,50 @@ private Long id;
 }
 ----
 
+° inizializzazione dei dati con una persona che possiede due macchine
+
 [,sql]
 ----
 insert into persona_bi (name,id) values (?,default)
 insert into macchina_bi (modello,proprietario_id,id) values (?,?,default)
 insert into macchina_bi (modello,proprietario_id,id) values (?,?,default)
+----
+
+° Rimozione della macchina da lato Persona:
+
+[,sql]
+----
+select p1_0.id,p1_0.name from persona_bi p1_0
+select m1_0.proprietario_id,m1_0.id,m1_0.modello from macchina_bi m1_0 where m1_0.proprietario_id=?
+update macchina_bi set modello=?,proprietario_id=? where id=?
+----
+
+° Rimozione Del propietaro dalla macchina:
+
+[,sql]
+----
+select m1_0.id,m1_0.modello,m1_0.proprietario_id from macchina_bi m1_0 where m1_0.proprietario_id is not null
+update macchina_bi set modello=?,proprietario_id=? where id=?
+----
+
+° Rimozione Del propietaro dalla macchina, utilizzando anche il metodo del proprietario di rimuovere la macchina:
+
+[,java]
+----
+public void rimuoviProprietario(){
+    // this = è la macchina.
+    //TODO verificare se è necessario rimuovere dal proprietario la macchina???
+    this.proprietario.rimuoviMacchina(this);
+    this.setProprietario(null);
+  }
+----
+
+.. Devo ancora capire se sia necessario per tenere sincronizzati i dati lato java (forse dipende dal caso d'uso).
+
+[,sql]
+----
+select m1_0.id,m1_0.modello,m1_0.proprietario_id from macchina_bi m1_0 where m1_0.proprietario_id is not null
+select p1_0.id,p1_0.name from persona_bi p1_0 where p1_0.id=?
+select m1_0.proprietario_id,m1_0.id,m1_0.modello from macchina_bi m1_0 where m1_0.proprietario_id=?
+update macchina_bi set modello=?,proprietario_id=? where id=?
 ----

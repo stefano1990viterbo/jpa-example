@@ -13,8 +13,11 @@ public class PersonaController_OTM_BI {
   private final PersonaService_OTM_Bidirezionale service;
 
   public void cicloPersona(){
+    log.warn(()-> "Inizio ciclo persona ONE_TO_MANY Bidirezionale");
     service.initPersonaConDueMacchine();
     service.rimuoviMacchinaDaProprietario();
+//    service.pulisciDb();
+    log.warn(()-> "Fine ciclo persona ONE_TO_MANY Bidirezionale");
   }
 
 
