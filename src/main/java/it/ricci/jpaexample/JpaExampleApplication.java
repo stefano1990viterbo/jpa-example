@@ -26,7 +26,7 @@ public class JpaExampleApplication implements ApplicationRunner {
 
     personaController_otm.cicloVita();
 
-    personaController_otm_bi.cicloPersona();
-    macchinaController_otm_bi.cicloMacchina();
+//    personaController_otm_bi.cicloPersona();
+//    macchinaController_otm_bi.cicloMacchina();
   }
 }

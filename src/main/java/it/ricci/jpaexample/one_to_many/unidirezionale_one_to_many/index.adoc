@@ -69,13 +69,17 @@ public void inizializzaPersonaConUnaMacchinaAssociata() {
 
     log.info(() -> "Inizializzo il db con la creazione di una persona con una macchinaBi associata");
 
-    Persona stefano = new Persona();
+   Persona stefano = new Persona();
     stefano.setName("Stefano");
 
-    Macchina macchinaBi = new Macchina();
-    macchinaBi.setModello("ford");
+    Macchina ford = new Macchina();
+    ford.setModello("ford");
 
-    stefano.getMacchine().add(macchinaBi);
+    Macchina bmw = new Macchina();
+    bmw.setModello("bmw");
+
+    stefano.getMacchine().add(ford);
+    stefano.getMacchine().add(bmw);
 
     personaRepository.save(stefano);
 
@@ -83,14 +87,26 @@ public void inizializzaPersonaConUnaMacchinaAssociata() {
   }
 ----
 
-* Con questa mappatura vengono effettuate queste query:
+* Con questa mappatura vengono effettuate queste query di inserimento:
 
 [,sql]
 ----
 insert into persona (name,id) values (?,default)
-insert into macchinaBi (modello,id) values (?,default)
+insert into macchina (modello,id) values (?,default)
+insert into macchina (modello,id) values (?,default)
+
+insert into persona_macchine (persona_id,macchine_id) values (?,?)
 insert into persona_macchine (persona_id,macchine_id) values (?,?)
 ----
+* Con questa mappatura vengono effettuate queste query per rimuovere una macchina da un proprietario:
+
+[,sql]
+----
+select m1_0.persona_id,m1_1.id,m1_1.modello from persona_macchine m1_0 join macchina m1_1 on m1_1.id=m1_0.macchine_id where m1_0.persona_id=?
+delete from persona_macchine where persona_id=?
+insert into persona_macchine (persona_id,macchine_id) values (?,?)
+----
+//TODO indagare perchè viene effettuata una insert dopo la delete??
 
 == Con JoinColumn
 

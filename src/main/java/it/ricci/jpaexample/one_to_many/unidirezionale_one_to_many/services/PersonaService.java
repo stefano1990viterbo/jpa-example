@@ -16,7 +16,6 @@ public class PersonaService {
 
   private final PersonaRepository personaRepository;
 
-
   /**
    *
    *
@@ -64,8 +63,7 @@ public class PersonaService {
 
     persona.getMacchine().remove(0);
 
-    personaRepository.save(persona);
-
+    personaRepository.flush();
     log.info(() -> "Fine");
   }
 }

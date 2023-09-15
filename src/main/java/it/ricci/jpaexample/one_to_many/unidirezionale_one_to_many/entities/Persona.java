@@ -33,12 +33,12 @@ public class Persona {
   //  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
   //  private List<Macchina> macchine = new ArrayList<>();
 
-  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+  @OneToMany(cascade = CascadeType.ALL, orphanRemoval = false)
   /**
    * Con la JoinColumn si dice ad hibernate di inserire nella tabella MACCHINE la colonna PERSONA_ID
    * come FK con il quale crea il collegamento con Persona In questo modo non viene creata la
    * tabella di mezzo PERSONA_MACCHINE
    */
-  @JoinColumn(name = "persona_id")
+//  @JoinColumn(name = "persona_id")
   private List<Macchina> macchine = new ArrayList<>();
 }
