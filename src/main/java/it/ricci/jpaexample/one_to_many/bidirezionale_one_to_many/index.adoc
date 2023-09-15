@@ -1,0 +1,100 @@
+:icons: font
+= OneToMany BIDIREZIONALE
+
+Il modo migliore per mappare un'associazione @OneToMany è fare affidamento sul @ManyToOne lato per propagare tutte le modifiche allo stato dell'entità:
+
+
+[,java]
+----
+@Entity
+@NoArgsConstructor
+@Getter
+@Setter
+public class PersonaBi {
+
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+
+  private String name;
+
+  @OneToMany(mappedBy = "proprietario", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<MacchinaBi> macchine = new ArrayList<>();
+
+  /**
+   * presenta due metodi di utilità (ad esempio aggiungiMacchina e rimuoviMacchina) che vengono utilizzati
+   * per sincronizzare entrambi i lati dell'associazione bidirezionale. Dovresti sempre fornire
+   * questi metodi ogni volta che lavori con un'associazione bidirezionale poiché, altrimenti,
+   * rischi di problemi di propagazione dello stato molto sottili
+   */
+  public void aggiungiMacchina(MacchinaBi macchinaBi) {
+    macchine.add(macchinaBi);
+    macchinaBi.setProprietario(this);
+  }
+
+  public void rimuoviMacchina(MacchinaBi macchinaBi) {
+    macchine.remove(macchinaBi);
+    macchinaBi.setProprietario(null);
+  }
+}
+----
+[IMPORTANT]
+====
+.Classe Persona
+presenta due metodi di utilità (ad esempio aggiungiMacchina e rimuoviMacchina) che vengono utilizzati
+per sincronizzare entrambi i lati dell'associazione bidirezionale. Dovresti sempre fornire
+questi metodi ogni volta che lavori con un'associazione bidirezionale poiché, altrimenti,
+rischi di problemi di propagazione dello stato molto sottili
+====
+
+
+[,java]
+----
+@Entity
+@NoArgsConstructor
+@Getter
+@Setter
+public class MacchinaBi {
+@Id
+@GeneratedValue(strategy = GenerationType.IDENTITY)
+private Long id;
+
+  private String modello;
+
+  /**
+   * L' @ManyToOneassociazione utilizza FetchType.LAZYperché, altrimenti, ricadremmo sul recupero
+   * EAGER, il che è negativo per le prestazioni .
+   */
+  @ManyToOne(fetch = FetchType.LAZY)
+  private PersonaBi proprietario;
+
+  /**
+   * L'entità figlio, Macchina, implementa i metodi equalse hashCode. Poiché non possiamo fare
+   * affidamento su un identificatore naturale per i controlli di uguaglianza , dobbiamo utilizzare
+   * invece l'identificatore di entità per il equalsmetodo. Tuttavia, è necessario farlo
+   * correttamente in modo che l'uguaglianza sia coerente in tutte le transizioni dello stato
+   * dell'entità , che è anche il motivo per cui hashCodedeve essere un valore costante. Poiché
+   * facciamo affidamento sull'uguaglianza per removeComment, è buona norma sovrascrivere equalse
+   * hashCodeper l'entità figlio in un'associazione bidirezionale.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    MacchinaBi macchina = (MacchinaBi) o;
+    return Objects.equals(id, macchina.id);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(id);
+  }
+}
+----
+
+[,sql]
+----
+insert into persona_bi (name,id) values (?,default)
+insert into macchina_bi (modello,proprietario_id,id) values (?,?,default)
+insert into macchina_bi (modello,proprietario_id,id) values (?,?,default)
+----
