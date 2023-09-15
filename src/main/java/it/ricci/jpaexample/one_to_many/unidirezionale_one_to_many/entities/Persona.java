@@ -39,6 +39,6 @@ public class Persona {
    * come FK con il quale crea il collegamento con Persona In questo modo non viene creata la
    * tabella di mezzo PERSONA_MACCHINE
    */
-//  @JoinColumn(name = "persona_id")
+  @JoinColumn(name = "persona_id")
   private List<Macchina> macchine = new ArrayList<>();
 }

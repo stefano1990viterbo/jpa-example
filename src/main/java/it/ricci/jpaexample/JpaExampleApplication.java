@@ -24,8 +24,7 @@ public class JpaExampleApplication implements ApplicationRunner {
   @Override
   public void run(ApplicationArguments args) throws Exception {
 
-    personaController_otm.cicloVita();
-
+//    personaController_otm.cicloVita();
 //    personaController_otm_bi.cicloPersona();
 //    macchinaController_otm_bi.cicloMacchina();
   }
