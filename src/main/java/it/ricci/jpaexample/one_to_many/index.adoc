@@ -1,3 +1,5 @@
+:leveloffset: -1
+
 = OneToMany
 
 
@@ -27,3 +29,8 @@ D'altro canto, l' @OneToMany associazione unidirezionale è più semplice poich�
 
 Esistono molti modi per mappare l' @OneToMany associazione. Possiamo usare una Lista o un Set. Possiamo anche definire @JoinColumnanche l'annotazione. Quindi, vediamo come funziona tutto questo.
 
+include::unidirezionale_one_to_many/index.adoc[]
+
+include::bidirezionale_one_to_many/index.adoc[]
+
+:leveloffset: -1

@@ -51,7 +51,7 @@ public class Macchina {
 ----
 
 * Questo mappatura genera una tabella di mezzo PERSONA_MACCHINE con Persona_id e Macchina_id
-image:risorse/img.png[]
+image:../../risorse/imgs/OTM_UNI.png[]
 
 ****
 Per un DBA, questa assomiglia più a un'associazione di database molti-a-molti che a una relazione uno-a-molti e non è neanche molto efficiente.
@@ -135,7 +135,7 @@ public class Macchina {
 * L' @JoinColumn annotazione aiuta Hibernate a capire che PERSONA_ID nella tabella MACCHINE
 è presente una colonna Foreign Key che definisce questa associazione.
 
-image:risorse/joincolumn.png[]
+image:../../risorse/imgs/OTM_UNI_joincolumn.png[]
 
 
 * Con questa mappatura vengono effettuate queste query:

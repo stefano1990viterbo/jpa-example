@@ -1,7 +1,10 @@
+:leveloffset: +1
+:imagesdir: risorse/imgs
+= Guida Associazioni tra Entity JPA
 
-= Proxy dei bean
-
-image:risorse/proxy.png[]
+== Proxy dei bean
+// image:risorse/proxy.png[]
+image:proxy.png[]
 
 //TODO
 Chiamare i metodi transazionali dei bean da fuori, altrimenti
@@ -12,3 +15,7 @@ dal proxy.
 quindi: dal main che contiene il proxy del bean si deve chiamare metodoUno
 poi metodoDue. in questo modo si passa ogni volta dal proxy che avvolge il bean
 ed i metodi.
+
+include::one_to_many/index.adoc[]
+
+:leveloffset: -1
