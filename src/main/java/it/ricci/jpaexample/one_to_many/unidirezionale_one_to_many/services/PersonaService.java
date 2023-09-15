@@ -44,6 +44,15 @@ public class PersonaService {
     stefano.getMacchine().add(ford);
     stefano.getMacchine().add(bmw);
 
+
+    Macchina sc = new Macchina();
+    sc.setModello("sc");
+    Macchina tt = new Macchina();
+    tt.setModello("tt");
+
+    stefano.getMacchine().add(sc);
+    stefano.getMacchine().add(tt);
+
     personaRepository.save(stefano);
 
     log.info(() -> "Fine inizializzazione");
@@ -61,7 +70,9 @@ public class PersonaService {
     Persona persona =
         personaRepository.findAll().stream().findFirst().orElseThrow(EntityNotFoundException::new);
 
-    persona.getMacchine().remove(0);
+    Macchina macchina = persona.getMacchine().stream().findFirst().get();
+
+    persona.getMacchine().remove(macchina);
 
     personaRepository.flush();
     log.info(() -> "Fine");

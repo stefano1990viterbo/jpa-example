@@ -8,7 +8,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,6 +27,7 @@ public class Persona {
 
   private String name;
 
+
   /**
    * Questo mappaggio crea la tabella di mezzo
    *
@@ -39,6 +42,15 @@ public class Persona {
    * come FK con il quale crea il collegamento con Persona In questo modo non viene creata la
    * tabella di mezzo PERSONA_MACCHINE
    */
-  @JoinColumn(name = "persona_id")
-  private List<Macchina> macchine = new ArrayList<>();
+//  @JoinColumn(name = "persona_id")
+
+  private Set<Macchina> macchine = new HashSet<>();
+
+  /**
+   * Evitare di usare le liste, perchè questo genere una quantita di insert nel momento della rimozione di un elemento dalla lista.
+   * Questo perchè essendo le liste ordinate, quando rimuovi un elemento lui si deve riordinare la lista come in precedenza
+   * hibernate vede questo come una modifica e quindi elimina tutti gli elementi e li reinserisce.
+   */
+  //  private List<Macchina> macchine = new ArrayList<>();
+
 }

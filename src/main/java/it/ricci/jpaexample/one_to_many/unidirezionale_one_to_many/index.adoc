@@ -30,7 +30,14 @@ public class Persona {
   private String name;
 
   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-  private List<Macchina> macchine = new ArrayList<>();
+   private Set<Macchina> macchine = new HashSet<>();
+
+  /**
+   * Evitare di usare le liste, perchè questo genere una quantita di insert nel momento della rimozione di un elemento dalla lista.
+   * Questo perchè essendo le liste ordinate, quando rimuovi un elemento lui si deve riordinare la lista come in precedenza
+   * hibernate vede questo come una modifica e quindi elimina tutti gli elementi e li reinserisce.
+   */
+  //  private List<Macchina> macchine = new ArrayList<>();
 }
 ----
 
@@ -106,7 +113,34 @@ select m1_0.persona_id,m1_1.id,m1_1.modello from persona_macchine m1_0 join macc
 delete from persona_macchine where persona_id=?
 insert into persona_macchine (persona_id,macchine_id) values (?,?)
 ----
-//TODO indagare perchè viene effettuata una insert dopo la delete??
+
+[IMPORTANT]
+====
+.Mappatura con Persone che contiene una Lista di macchine:
+. Viene fatta una delete sulla tabella PERSONA_MACCHINE per tutti gli elementi che contengono l'id della persona a cui vogliamo rimuovere una singola macchina.
+questo significa che togli in prima battuta tutte le associazini tra quell'utente e le auto.
+. Poi fa la insert per riassociare le auto rimaste a quella persona.
+
+Questo avviene perche Persona ha al suo interno una lista di Macchina, la lista deve mantenere l'ordine e per questo
+vengono rimosse e reinserite nello stesso ordine.
+
+QUINDI ---> utilizzare i SET
+
+Set<Macchina>
+
+====
+
+Utilizzando i Set ecco le query che vengono generate:
+
+[,sql]
+----
+select p1_0.id,p1_0.name from persona p1_0
+select m1_0.persona_id,m1_1.id,m1_1.modello from persona_macchine m1_0 join macchina m1_1 on m1_1.id=m1_0.macchine_id where m1_0.persona_id=?
+delete from persona_macchine where persona_id=? and macchine_id=?
+----
+Viene effettuta la delete puntuale dell'elemento.
+
+
 
 == Con JoinColumn
 
