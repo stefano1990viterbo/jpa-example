@@ -30,3 +30,9 @@ jobs:
     - name: Build with Maven
       run: mvn clean install
 
+    - name: Archive target directory
+      uses: actions/upload-artifact@v2
+      with:
+        name: target
+        path: target
+
