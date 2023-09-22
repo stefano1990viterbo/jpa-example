@@ -114,7 +114,7 @@
                   <!--							<sourceDirectory>src/main/resources</sourceDirectory>-->
                   <sourceDirectory>src/main/resources/manuale</sourceDirectory>
                   <backend>html5</backend>
-                  <outputDirectory>${project.basedir}/readme</outputDirectory>
+                  <outputDirectory>${project.basedir}/target</outputDirectory>
                   <attributes>
                     <source-highlighter>coderay</source-highlighter>
                     <!--                                 <imagesdir>../resources/imgs</imagesdir> -->
@@ -139,7 +139,7 @@
                   <!--							<sourceDirectory>src/main/resources</sourceDirectory>-->
                   <sourceDirectory>src/main/resources/manuale</sourceDirectory>
                   <backend>pdf</backend>
-                  <outputDirectory>${project.basedir}/readme</outputDirectory>
+                  <outputDirectory>${project.basedir}/target</outputDirectory>
                   <outputFile>Manuale.pdf</outputFile>
                   <attributes>
                     <source-highlighter>coderay</source-highlighter>

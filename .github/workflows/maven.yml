@@ -25,5 +25,5 @@ jobs:
       - name: Archive target directory
         uses: actions/upload-artifact@v2
         with:
-          name: readme
-          path: guida
+          name: target
+          path: target
