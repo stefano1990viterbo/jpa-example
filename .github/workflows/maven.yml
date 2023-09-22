@@ -23,13 +23,13 @@ jobs:
         run: | 
           mvn clean install
           mkdir -p my_output_folder
-          cp -r target cartellaManuale/
+          cp -r target manuale/
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: build-artifacts
-          path: cartellaManuale
+          name: guida
+          path: manuale
 
 #      - name: Build with Maven
 #        run: mvn clean install -Dmanuale
