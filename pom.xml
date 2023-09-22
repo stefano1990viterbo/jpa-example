@@ -142,29 +142,29 @@
 
             <executions>
 
-              <execution>
-                <id>convert-to-html</id>
-                <phase>generate-resources</phase>
-                <goals>
-                  <goal>process-asciidoc</goal>
-                </goals>
-                <configuration>
-                  <!--							<sourceDirectory>src/main/resources</sourceDirectory>-->
-                  <sourceDirectory>src/main/resources/manuale</sourceDirectory>
-                  <backend>html5</backend>
-                  <outputDirectory>${project.basedir}/manuale</outputDirectory>
-                  <attributes>
-                    <source-highlighter>coderay</source-highlighter>
-                    <!--                                 <imagesdir>../resources/imgs</imagesdir> -->
-                    <!--								<imagesdir>./imgs</imagesdir>-->
-                    <imagesdir>./risorse/imgs</imagesdir>
-                    <toc>left</toc>
-                    <toc-title>Indice</toc-title>
-                    <icons>font</icons>
-                    <last-update-label>Aggiornata al:</last-update-label>
-                  </attributes>
-                </configuration>
-              </execution>
+<!--              <execution>-->
+<!--                <id>convert-to-html</id>-->
+<!--                <phase>generate-resources</phase>-->
+<!--                <goals>-->
+<!--                  <goal>process-asciidoc</goal>-->
+<!--                </goals>-->
+<!--                <configuration>-->
+<!--                  &lt;!&ndash;							<sourceDirectory>src/main/resources</sourceDirectory>&ndash;&gt;-->
+<!--                  <sourceDirectory>src/main/resources/manuale</sourceDirectory>-->
+<!--                  <backend>html5</backend>-->
+<!--                  <outputDirectory>${project.basedir}/manuale</outputDirectory>-->
+<!--                  <attributes>-->
+<!--                    <source-highlighter>coderay</source-highlighter>-->
+<!--                    &lt;!&ndash;                                 <imagesdir>../resources/imgs</imagesdir> &ndash;&gt;-->
+<!--                    &lt;!&ndash;								<imagesdir>./imgs</imagesdir>&ndash;&gt;-->
+<!--                    <imagesdir>./risorse/imgs</imagesdir>-->
+<!--                    <toc>left</toc>-->
+<!--                    <toc-title>Indice</toc-title>-->
+<!--                    <icons>font</icons>-->
+<!--                    <last-update-label>Aggiornata al:</last-update-label>-->
+<!--                  </attributes>-->
+<!--                </configuration>-->
+<!--              </execution>-->
 
 
               <execution>
