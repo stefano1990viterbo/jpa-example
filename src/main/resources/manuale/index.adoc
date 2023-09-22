@@ -1,0 +1,30 @@
+= Guida Associazioni tra Entity JPA
+:icons: font
+:toclevels: 2
+:doctype: book
+:encoding: utf-8
+:lang: it
+:toc: left
+:numbered:
+:imagesdir: risorse/imgs
+
+:leveloffset: +1
+
+== Proxy dei bean
+// image:risorse/proxy.png[]
+image:proxy.png[]
+
+//TODO
+Chiamare i metodi transazionali dei bean da fuori, altrimenti
+ se dall'interno del bean in un metodo non transazionale, viene chiamato
+un metodo annotato con @Transactional in realtà non si sta chiamando il metodo avvolto
+dal proxy.
+
+quindi: dal main che contiene il proxy del bean si deve chiamare metodoUno
+poi metodoDue. in questo modo si passa ogni volta dal proxy che avvolge il bean
+ed i metodi.
+
+include::01-one_to_many/index.adoc[]
+include::02-many_to_many/index.adoc[]
+
+:leveloffset: -1

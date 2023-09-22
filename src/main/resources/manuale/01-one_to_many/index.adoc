@@ -1,0 +1,34 @@
+= OneToMany
+
+:leveloffset: +1
+
+== Introduzione
+https://vladmihalcea.com/the-best-way-to-map-a-onetomany-association-with-jpa-and-hibernate/
+
+In un sistema di database relazionale, un'associazione uno-a-molti collega due tabelle in base a una colonna di chiave esterna in modo che il record della tabella figlia faccia riferimento alla chiave primaria della riga della tabella padre.
+
+Per quanto semplice possa essere in un database relazionale, quando si tratta di JPA, l' associazione del database uno-a-molti può essere rappresentata tramite un'associazione @ManyToOneo @OneToManyun'associazione poiché l'associazione OOP può essere unidirezionale o bidirezionale.
+
+L' @ManyToOne annotazione ti consente di mappare la colonna Foreign Key nella mappatura dell'entità figlio in modo che il figlio abbia un riferimento all'oggetto entità alla sua entità genitore.
+Questo è il modo più naturale per mappare un'associazione di database uno-a-molti e, di solito, anche l'alternativa più efficiente .
+
+
+****
+[yellow]#Per comodità, per sfruttare le transizioni dello stato dell'entità e il meccanismo di controllo sporco , molti sviluppatori scelgono di mappare le entità figlie come raccolta nell'oggetto genitore e, a questo scopo, JPA offre l' @OneToMany annotazione.#
+****
+
+
+Come ho spiegato nel mio libro , molte volte è meglio sostituire le raccolte con una query, che è molto più flessibile in termini di prestazioni di recupero. Tuttavia, ci sono momenti in cui mappare una raccolta è la cosa giusta da fare e quindi hai due scelte:
+
+@OneToMany un'associazione unidirezionale
+@OneToMany un'associazione bidirezionale
+L'associazione bidirezionale richiede che la mappatura dell'entità figlio fornisca un'annotazione @ManyToOne, che è responsabile del controllo dell'associazione .
+
+D'altro canto, l' @OneToMany associazione unidirezionale è più semplice poiché è solo il lato genitore a definire la relazione. In questo articolo spiegherò gli avvertimenti delle @OneToMany associazioni e come superarli.
+
+Esistono molti modi per mappare l' @OneToMany associazione. Possiamo usare una Lista o un Set. Possiamo anche definire @JoinColumnanche l'annotazione. Quindi, vediamo come funziona tutto questo.
+
+include::unidirezionale_one_to_many/index.adoc[]
+include::bidirezionale_one_to_many/index.adoc[]
+
+:leveloffset: -1
