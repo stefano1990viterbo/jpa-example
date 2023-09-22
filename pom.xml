@@ -152,7 +152,7 @@
                   <!--							<sourceDirectory>src/main/resources</sourceDirectory>-->
                   <sourceDirectory>src/main/resources/manuale</sourceDirectory>
                   <backend>html5</backend>
-                  <outputDirectory>${project.basedir}/target/manuale</outputDirectory>
+                  <outputDirectory>${project.basedir}/manuale</outputDirectory>
                   <attributes>
                     <source-highlighter>coderay</source-highlighter>
                     <!--                                 <imagesdir>../resources/imgs</imagesdir> -->
