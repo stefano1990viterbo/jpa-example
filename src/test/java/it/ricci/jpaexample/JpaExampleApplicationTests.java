@@ -5,7 +5,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 class JpaExampleApplicationTests {
-
+//prova stucazz
 	@Test
 	void contextLoads() {
 	}
