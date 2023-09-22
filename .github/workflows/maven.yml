@@ -21,7 +21,7 @@ jobs:
           cache: maven
       - name: Build with Maven
         run: | 
-          mvn clean install
+          mvn clean install -Dmanuale
           mkdir -p my_output_folder
           cp -r target manuale/
 
