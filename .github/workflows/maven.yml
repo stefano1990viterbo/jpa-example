@@ -20,10 +20,24 @@ jobs:
           distribution: 'temurin'
           cache: maven
       - name: Build with Maven
-        run: mvn clean install -Dmanuale
+        run: | 
+          mvn clean install
+          mkdir -p my_output_folder
+          cp -r target cartellaManuale/
 
-      - name: Archive target directory
+      - name: Upload Build Artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: target
-          path: target
+          name: build-artifacts
+          path: cartellaManuale
+
+#      - name: Build with Maven
+#        run: mvn clean install -Dmanuale
+#
+#      - name: Archive target directory
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: target
+#          path: target
+
+
