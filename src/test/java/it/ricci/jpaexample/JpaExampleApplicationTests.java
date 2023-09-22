@@ -6,6 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class JpaExampleApplicationTests {
 //prova stucazz
+
+	// un altro commento
 	@Test
 	void contextLoads() {
 	}
