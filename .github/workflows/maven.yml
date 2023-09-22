@@ -25,11 +25,14 @@ jobs:
           mkdir -p manuale
           cp -r target/manuale manuale/
 
-      - name: Upload Build Artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: guida
-          path: manuale
+      - name: Move artifact to my-folder
+        run: mv mmanuale/
+
+#      - name: Upload Build Artifacts
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: guida
+#          path: manuale
 
 #      - name: Build with Maven
 #        run: mvn clean install -Dmanuale
